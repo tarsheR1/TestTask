@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using System;
-using WebApplication1.Authorization;
 using WebApplication1.Enums_core_;
 
-namespace WebApplication1.Infrastructure.Authorization
+namespace WebApplication1.ServerApp.Infrastructure.Authorization
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
     public class PermissionAuthorizeAttribute : Attribute, IAuthorizationPolicyProvider
@@ -30,13 +29,11 @@ namespace WebApplication1.Infrastructure.Authorization
 
         public Task<AuthorizationPolicy> GetPolicyAsync(string policyName)
         {
-            // Если имя политики совпадает с именем, которое мы ожидаем, возвращаем нужную политику
             if (policyName == nameof(PermissionAuthorizeAttribute))
             {
                 return GetDefaultPolicyAsync();
             }
 
-            // Возвращаем null, если политика не найдена
             return Task.FromResult<AuthorizationPolicy>(null);
         }
     }

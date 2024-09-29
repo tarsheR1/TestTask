@@ -1,21 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
-using WebApplication1.Models;
-using WebApplication1.DataAccess.Entities;
+using WebApplication1.ServerApp.Сore.Models;
+using WebApplication1.ServerApp.DataAccess.Entities;
 using Microsoft.Extensions.Options;
-using WebApplication1.DataAccess.Configuration;
-using WebApplication1.Infrastructure.Authorization;
+using WebApplication1.ServerApp.DataAccess.Configuration;
+using WebApplication1.ServerApp.Infrastructure.Authorization;
 
-namespace WebApplication1.DataAccess
+namespace WebApplication1.ServerApp.DataAccess
 {
     public class EventsDbContext : DbContext
     {
         private readonly IOptions<AuthorizationOptions> _authOptions;
-
-        public EventsDbContext(DbContextOptions<EventsDbContext> options, IOptions<AuthorizationOptions> authOptions)
+        private readonly IConfiguration _configuration;
+        public EventsDbContext(
+            DbContextOptions<EventsDbContext> options, 
+            IOptions<AuthorizationOptions> authOptions,
+            IConfiguration configuration)
             : base(options)
         {
             _authOptions = authOptions;
+            _configuration = configuration;
         }
 
         public DbSet<EventEntity> Events => Set<EventEntity>();
@@ -26,6 +30,7 @@ namespace WebApplication1.DataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            string connectionString = _configuration.GetConnectionString("DefaultConnection");
             optionsBuilder.UseSqlServer("Server=TIME_MACHINE\\SQLEXPRESS;Database=Менеджер мероприятий;Trusted_Connection=True;TrustServerCertificate=true;").LogTo(Console.WriteLine, LogLevel.Information);
         }
 
@@ -34,5 +39,5 @@ namespace WebApplication1.DataAccess
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(EventsDbContext).Assembly);
             modelBuilder.ApplyConfiguration(new RolePermissionConfiguration(_authOptions.Value));
         }
-    } 
+    }
 }

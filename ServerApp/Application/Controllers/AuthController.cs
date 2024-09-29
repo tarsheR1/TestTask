@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using WebApplication1.Services;
-using WebApplication1.Сore.Interfaces;
-using WebApplication1.Сore.Contracts;
+using WebApplication1.ServerApp.Application.Services;
+using WebApplication1.ServerApp.Сore.Interfaces;
+using WebApplication1.ServerApp.Сore.Contracts;
 
 [Route("api/authorization")]
 [ApiController]

@@ -1,6 +1,6 @@
-﻿using WebApplication1.Сore.Contracts;
+﻿using WebApplication1.ServerApp.Сore.Contracts;
 
-namespace WebApplication1.Сore.Interfaces
+namespace WebApplication1.ServerApp.Сore.Interfaces
 {
     public interface IAuthService
     {

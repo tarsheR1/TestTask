@@ -1,15 +1,15 @@
 ﻿using WebApplication1.Enums_core_;
-using WebApplication1.Сore.Models;
+using WebApplication1.ServerApp.DataAccess.Entities;
+using WebApplication1.ServerApp.Сore.Models;
 
-namespace WebApplication1.Сore.Interfaces
+namespace WebApplication1.ServerApp.Сore.Interfaces;
+
+public interface IUserRepository
 {
-    public interface IUserRepository
-    {
-        Task<Guid> Add(User user);
-        Task<User> GetByEmail(string email);
-        Task<HashSet<Permissions>> GetUserPermissions(Guid userId);
-        Task<List<User>> GetUsersForEvent(Guid eventId);
-        Task<Guid> SubscribeForEvent(Guid eventId, Guid userId);
-        Task<Guid> UnscribeForEvent(Guid eventId, Guid userId);
-    }
+    Task<Guid> Add(UserEntity user);
+    Task<UserEntity> GetByEmail(string email);
+    Task<HashSet<Permissions>> GetUserPermissions(Guid userId);
+    Task<List<UserEntity>> GetUsersForEvent(Guid eventId);
+    Task<Guid> SubscribeForEvent(Guid eventId, Guid userId);
+    Task<Guid> UnscribeForEvent(Guid eventId, Guid userId);
 }

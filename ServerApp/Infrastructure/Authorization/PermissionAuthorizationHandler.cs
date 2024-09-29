@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using System.Security;
-using WebApplication1.Сore.Interfaces;
+using WebApplication1.ServerApp.Сore.Interfaces;
 
-namespace WebApplication1.Authorization
+namespace WebApplication1.ServerApp.Infrastructure.Authorization
 {
-    public class PermissionAuthorizationHandler 
+    public class PermissionAuthorizationHandler
         : AuthorizationHandler<PermissionRequirment>
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
 
-        public PermissionAuthorizationHandler(IServiceScopeFactory serviceScope) 
+        public PermissionAuthorizationHandler(IServiceScopeFactory serviceScope)
         {
             _serviceScopeFactory = serviceScope;
         }

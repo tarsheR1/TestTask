@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
-using WebApplication1.Interfaces;
+using WebApplication1.ServerApp.Сore.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 
-namespace WebApplication1.Controllers
+namespace WebApplication1.ServerApp.Application.Controllers
 {
     [Route("user")]
     [Authorize(Policy = "RequireAdminPermission")]
     [ApiController]
-    public class UserController :  ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly IAdminService _adminService;
 

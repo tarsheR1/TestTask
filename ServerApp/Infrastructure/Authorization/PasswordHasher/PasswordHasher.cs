@@ -1,6 +1,6 @@
-﻿using WebApplication1.Сore.Interfaces;
+﻿using WebApplication1.ServerApp.Сore.Interfaces;
 
-namespace WebApplication1.Authorization.PasswordHasher
+namespace WebApplication1.ServerApp.Infrastructure.Authorization.PasswordHasher
 {
     public class PasswordHasher : IPasswordHasher
     {

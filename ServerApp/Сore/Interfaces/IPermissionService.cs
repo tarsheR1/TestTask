@@ -1,6 +1,6 @@
 ﻿using WebApplication1.Enums_core_;
 
-namespace WebApplication1.Сore.Interfaces
+namespace WebApplication1.ServerApp.Сore.Interfaces
 {
     public interface IPermissionService
     {

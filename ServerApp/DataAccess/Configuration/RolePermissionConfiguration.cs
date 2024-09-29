@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Data;
 using System.Net.WebSockets;
 using System.Security;
-using WebApplication1.DataAccess.Entities;
+using WebApplication1.ServerApp.DataAccess.Entities;
 using WebApplication1.Enums_core_;
-using WebApplication1.Infrastructure.Authorization;
+using WebApplication1.ServerApp.Infrastructure.Authorization;
 
-namespace WebApplication1.DataAccess.Configuration
+namespace WebApplication1.ServerApp.DataAccess.Configuration
 {
     public class RolePermissionConfiguration
         : IEntityTypeConfiguration<RolePermissionEntity>

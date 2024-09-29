@@ -1,8 +1,8 @@
 ﻿using System.Security;
-using WebApplication1.Interfaces;
+using WebApplication1.ServerApp.Сore.Interfaces;
 using WebApplication1.Enums_core_;
 
-namespace WebApplication1.Services
+namespace WebApplication1.ServerApp.Application.Services
 {
     public class PermissionService : IPermissionService
     {

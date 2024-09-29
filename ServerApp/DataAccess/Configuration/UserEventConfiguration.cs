@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using WebApplication1.DataAccess.Entities;
+using WebApplication1.ServerApp.DataAccess.Entities;
 
-namespace WebApplication1.Сore.Controllers
+namespace WebApplication1.ServerApp.Application.Controllers
 {
     public class UserEventConfiguration : IEntityTypeConfiguration<UserEventEntity>
     {

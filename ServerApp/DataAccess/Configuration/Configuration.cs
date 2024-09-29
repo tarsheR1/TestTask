@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Diagnostics.Eventing.Reader;
-using WebApplication1.DataAccess.Entities;
+using WebApplication1.ServerApp.DataAccess.Entities;
 using WebApplication1.Enums_core_;
-using WebApplication1.Сore.Models;
+using WebApplication1.ServerApp.Сore.Models;
 
-namespace WebApplication1.DataAccess.Configuration
+namespace WebApplication1.ServerApp.DataAccess.Configuration
 {
     public class Configuration : IEntityTypeConfiguration<EventEntity>
     {
@@ -21,7 +21,7 @@ namespace WebApplication1.DataAccess.Configuration
                 .IsRequired();
 
             builder.Property(e => e.EventDateTime)
-                .IsRequired(); 
+                .IsRequired();
         }
     }
 }

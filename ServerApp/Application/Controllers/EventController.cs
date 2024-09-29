@@ -1,41 +1,48 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using WebApplication1.DataAccess;
+using WebApplication1.ServerApp.DataAccess;
 using System.Reflection;
 using Microsoft.AspNetCore.Authorization;
-using WebApplication1.Сore.Interfaces;
-using WebApplication1.Сore.Models;
-using WebApplication1.Сore.Contracts;
+using WebApplication1.ServerApp.Сore.Interfaces;
+using WebApplication1.ServerApp.Сore.Models;
+using WebApplication1.ServerApp.Сore.Contracts;
+using WebApplication1.ServerApp.Сore.Validation;
+using FluentValidation;
 
-namespace WebApplication1.Сore.Controllers
+namespace WebApplication1.ServerApp.Application.Controllers
 {
     [ApiController]
     [Route("controller")]
     public class EventController : ControllerBase
     {
         private readonly IEventService _eventService;
+        private readonly CreateEventRequestValidator _validator;
 
-        public EventController(IEventService eventService)
+        public EventController(IEventService eventService, CreateEventRequestValidator validator)
         {
             _eventService = eventService;
+            _validator = validator;
         }
 
         [HttpPost]
         [Authorize(Policy = "RequireAdminPermission")]
         public async Task<IActionResult> CreateEvent([FromBody] CreateEventRequest request, CancellationToken cancellationToken)
         {
-            var (@event, error) = Event.Create(
-                    Guid.NewGuid(),
-                    request.Title,
-                    request.DateTime,
-                    request.Location
-                );
+            var validationResult = _validator.Validate(request);
 
-            if (!string.IsNullOrEmpty(error))
+            if (!validationResult.IsValid)
             {
-                return BadRequest(error);
+                return BadRequest(validationResult.Errors);
             }
+
+            Event @event = new Event
+            {
+                Id = Guid.NewGuid(),
+                Title = request.Title,
+                EventDateTime = request.DateTime,
+                Location = request.Location
+            };
 
             var eventId = await _eventService.CreateEvent(@event);
 

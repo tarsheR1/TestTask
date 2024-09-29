@@ -1,4 +1,4 @@
-﻿namespace WebApplication1.Infrastructure.Authorization
+﻿namespace WebApplication1.ServerApp.Infrastructure.Authorization
 {
     public class JwtOptions
     {

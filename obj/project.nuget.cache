@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "wxV3d6YeZrY=",
+  "dgSpecHash": "gM/L+DtdqNE=",
   "success": true,
   "projectFilePath": "D:\\WebApplication1\\WebApplication1.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,7 @@
     "C:\\Users\\matsk\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\matsk\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
     "C:\\Users\\matsk\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
+    "C:\\Users\\matsk\\.nuget\\packages\\fluentvalidation\\11.10.0\\fluentvalidation.11.10.0.nupkg.sha512",
     "C:\\Users\\matsk\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\matsk\\.nuget\\packages\\javascriptengineswitcher.core\\3.1.0\\javascriptengineswitcher.core.3.1.0.nupkg.sha512",
     "C:\\Users\\matsk\\.nuget\\packages\\jspool\\4.0.0\\jspool.4.0.0.nupkg.sha512",

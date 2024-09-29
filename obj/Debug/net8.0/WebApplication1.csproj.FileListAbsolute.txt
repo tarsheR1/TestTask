@@ -8,8 +8,6 @@ D:\WebApplication1\obj\Debug\net8.0\WebApplication1.MvcApplicationPartsAssemblyI
 D:\WebApplication1\bin\Debug\net8.0\appsettings.Development.json
 D:\WebApplication1\bin\Debug\net8.0\appsettings.json
 D:\WebApplication1\bin\Debug\net8.0\libman.json
-D:\WebApplication1\bin\Debug\net8.0\my-react-app\package-lock.json
-D:\WebApplication1\bin\Debug\net8.0\my-react-app\package.json
 D:\WebApplication1\bin\Debug\net8.0\package-lock.json
 D:\WebApplication1\bin\Debug\net8.0\package.json
 D:\WebApplication1\bin\Debug\net8.0\WebApplication1.exe
@@ -160,3 +158,5 @@ D:\WebApplication1\obj\Debug\net8.0\WebApplication1.pdb
 D:\WebApplication1\obj\Debug\net8.0\WebApplication1.genruntimeconfig.cache
 D:\WebApplication1\obj\Debug\net8.0\ref\WebApplication1.dll
 D:\WebApplication1\obj\Debug\net8.0\WebApplication1.sourcelink.json
+D:\WebApplication1\bin\Debug\net8.0\ClientsApp\my-react-app\package-lock.json
+D:\WebApplication1\bin\Debug\net8.0\ClientsApp\my-react-app\package.json

@@ -2,57 +2,39 @@
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
-using WebApplication1.DataAccess.Entities;
+using WebApplication1.ServerApp.DataAccess.Entities;
 using WebApplication1.Enums_core_;
 using Microsoft.AspNetCore.Http.HttpResults;
-using WebApplication1.Сore.Interfaces;
-using WebApplication1.Сore.Models;
+using WebApplication1.ServerApp.Сore.Interfaces;
+using WebApplication1.ServerApp.Сore.Models;
+using WebApplication1.ServerApp.DataAccess;
 
-namespace WebApplication1.DataAccess.Repositories
+namespace WebApplication1.ServerApp.DataAccess.Repositories
 {
     public class UserRepository : IUserRepository
     {
         private readonly EventsDbContext _context;
-        private readonly IMapper _mapper;
 
-        public UserRepository(EventsDbContext context, IMapper mapper)
+        public UserRepository(EventsDbContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
-        public async Task<Guid> Add(User user)
+        public async Task<Guid> Add(UserEntity userEntity)
         {
-            var userEntity = new UserEntity
-            {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                DateOfBirth = user.DateOfBirth,
-                RegistrationDate = user.RegistrationDate,
-
-                HashPassword = user.PasswordHash
-            };
-
             await _context.Users.AddAsync(userEntity);
             await _context.SaveChangesAsync();
 
             return userEntity.Id;
         }
 
-        public async Task<User> GetByEmail(string email)
+        public async Task<UserEntity> GetByEmail(string email)
         {
             var userEntity = await _context.Users
                 .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Email == email);
 
-            if (userEntity == null)
-            {
-                throw new Exception("This email not registred");
-            }
-
-            return _mapper.Map<User>(userEntity);
+            return userEntity;
         }
 
         public async Task<HashSet<Permissions>> GetUserPermissions(Guid userId)
@@ -72,7 +54,7 @@ namespace WebApplication1.DataAccess.Repositories
                 .ToHashSet();
         }
 
-        public async Task<List<User>> GetUsersForEvent(Guid eventId)
+        public async Task<List<UserEntity>> GetUsersForEvent(Guid eventId)
         {
             {
                 var userEntities = await _context.Users
@@ -86,13 +68,11 @@ namespace WebApplication1.DataAccess.Repositories
                         combined => combined.EventParticipant.EventId,
                         evt => evt.Id,
                         (combined, evt) => new { combined.User, evt })
-                    .Where(joined => joined.evt.Id == eventId) 
+                    .Where(joined => joined.evt.Id == eventId)
                     .Select(joined => joined.User)
                     .ToListAsync();
 
-
-                List<User> users = _mapper.Map<List<UserEntity>, List<User>>( userEntities);
-                return users;
+                return userEntities;
             }
         }
 
@@ -119,9 +99,8 @@ namespace WebApplication1.DataAccess.Repositories
 
                 if (eventParticipate != null)
                 {
-                    // Remove the found EventParticipate record and save changes
                     _context.EventParticipants.Remove(eventParticipate);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                 }
 
                 return userId;

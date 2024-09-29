@@ -1,13 +1,13 @@
-﻿using WebApplication1.Models;
+﻿using WebApplication1.ServerApp.Сore.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Options;
 using System.Text;
 using System.Security.Claims;
-using WebApplication1.Interfaces;
+using WebApplication1.ServerApp.Сore.Models;
 
-namespace WebApplication1.Authorization
+namespace WebApplication1.ServerApp.Infrastructure.Authorization
 {
     public class JwtProvider : IJwtProvider
     {

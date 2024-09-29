@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using WebApplication1.Сore.Interfaces;
+using WebApplication1.ServerApp.Сore.Interfaces;
 
-namespace WebApplication1.Сore.Controllers
+namespace WebApplication1.ServerApp.Application.Controllers
 {
     [Route("api/admin")]
     [Authorize(Policy = "RequireAdminPermission")]

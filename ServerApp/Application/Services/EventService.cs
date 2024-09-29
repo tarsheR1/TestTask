@@ -1,16 +1,20 @@
-﻿using System.Linq.Expressions;
-using WebApplication1.Interfaces;
-using WebApplication1.Models;
+﻿using AutoMapper;
+using System.Linq.Expressions;
+using WebApplication1.ServerApp.DataAccess.Entities;
+using WebApplication1.ServerApp.Сore.Interfaces;
+using WebApplication1.ServerApp.Сore.Models;
 
-namespace WebApplication1.Сore.Services
+namespace WebApplication1.ServerApp.Application.Services
 {
     public class EventService : IEventService
     {
         private readonly IEventsRepository _eventsRepository;
+        private readonly Mapper _mapper;
 
-        public EventService(IEventsRepository eventsRepository)
+        public EventService(IEventsRepository eventsRepository, Mapper mapper)
         {
             _eventsRepository = eventsRepository;
+            _mapper = mapper;
         }
 
         public async Task<List<Event>> GetEvents(string? search, string? sortItem, string? order)
@@ -20,7 +24,7 @@ namespace WebApplication1.Сore.Services
 
         public async Task<Guid> CreateEvent(Event @event)
         {
-            return await _eventsRepository.Create(@event);
+            return await _eventsRepository.Create(_mapper.Map<EventEntity>(@event));
         }
 
         public async Task<Guid> UpdateEvent(Guid id, string title, DateTime dateTime, string location)

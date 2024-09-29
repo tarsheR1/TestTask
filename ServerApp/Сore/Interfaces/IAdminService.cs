@@ -1,6 +1,6 @@
-﻿using WebApplication1.Сore.Models;
+﻿using WebApplication1.ServerApp.Сore.Models;
 
-namespace WebApplication1.Сore.Interfaces
+namespace WebApplication1.ServerApp.Сore.Interfaces
 {
     public interface IAdminService
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebApplication1.Сore.Contracts
+namespace WebApplication1.ServerApp.Сore.Contracts
 {
     public record RegisterUserRequest(
         [Required] string firstname,

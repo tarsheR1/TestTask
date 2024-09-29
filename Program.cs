@@ -1,26 +1,19 @@
-using WebApplication1.DataAccess;
 using Microsoft.EntityFrameworkCore;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using WebApplication1.Interfaces;
+using WebApplication1.ServerApp.Ñore.Interfaces;
 using React.AspNet;
-using WebApplication1.Mapping;
+using WebApplication1.ServerApp.Infrastructure.Mapping;
 using AutoMapper;
-using WebApplication1;
-using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
-using WebApplication1.DataAccess.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
-using WebApplication1.Authorization;
-using WebApplication1.Authorization.PasswordHasher;
-using WebApplication1.DataAccess.Repositories;
 using WebApplication1.Enums_core_;
 using Microsoft.AspNetCore.Authorization;
-using WebApplication1.Ñore.Services;
+using WebApplication1.ServerApp.Application.Services;
+using WebApplication1.ServerApp.DataAccess;
+using WebApplication1.ServerApp.Infrastructure.Authorization;
+using WebApplication1.ServerApp.Infrastructure.Authorization.PasswordHasher;
+using WebApplication1.ServerApp.DataAccess.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -73,7 +66,7 @@ builder.Services.AddDbContext<EventsDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(EventsDbContext)));
 });
 
-builder.Services.Configure<WebApplication1.Authorization.AuthorizationOptions>(builder.Configuration.GetSection(nameof(WebApplication1.Authorization.AuthorizationOptions)));
+builder.Services.Configure<WebApplication1.ServerApp.Infrastructure.Authorization.AuthorizationOptions>(builder.Configuration.GetSection(nameof(WebApplication1.ServerApp.Infrastructure.Authorization.AuthorizationOptions)));
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("JwtOptions"));
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
@@ -86,8 +79,10 @@ builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IEventsRepository, EventsRepository>();
 builder.Services.AddScoped<IEventService, EventService>();
 
-builder.Services.AddAutoMapper(typeof(AssemblyMappingProfile).Assembly);
-
+builder.Services.AddAutoMapper(typeof(UserEntityToUserProfile).Assembly);
+builder.Services.AddAutoMapper(typeof(UserToUserEntityProfile).Assembly);
+builder.Services.AddAutoMapper(typeof(EventToEventEntity).Assembly);
+builder.Services.AddAutoMapper(typeof(EventEntityToEvent).Assembly);
 var jwtOptions = builder.Configuration.GetSection("JwtOptions").Get<JwtOptions>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -123,7 +118,7 @@ builder.Services.AddAuthorization(options =>
 
 var mappingConfig = new MapperConfiguration(mc =>
 {
-    mc.AddProfile(new MappingProfile());
+    mc.AddProfile(new UserEntityToUserProfile());
 });
 
 IMapper mapper = mappingConfig.CreateMapper();

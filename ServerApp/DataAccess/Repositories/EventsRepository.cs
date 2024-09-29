@@ -3,11 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using System.Web.WebPages;
 using System.Linq.Expressions;
 using System.Linq;
-using WebApplication1.DataAccess.Entities;
-using WebApplication1.Сore.Interfaces;
-using WebApplication1.Сore.Models;
+using WebApplication1.ServerApp.DataAccess.Entities;
+using WebApplication1.ServerApp.Сore.Interfaces;
+using WebApplication1.ServerApp.Сore.Models;
+using WebApplication1.ServerApp.DataAccess;
 
-namespace WebApplication1.DataAccess.Repositories
+namespace WebApplication1.ServerApp.DataAccess.Repositories
 {
     public class EventsRepository : IEventsRepository
     {
@@ -27,22 +28,15 @@ namespace WebApplication1.DataAccess.Repositories
                 .ToListAsync();
 
             var events = eventsEntities
-                .Select(e => Event.Create(e.Id, e.Title, e.EventDateTime, e.Location).newEvent)
-                .ToList();
+                    .Select(e => new Event { Id = e.Id, Title = e.Title, EventDateTime = e.EventDateTime, Location = e.Location })
+                    .ToList();
 
             return events;
         }
 
-        public async Task<Guid> Create(Event @event)
+        public async Task<Guid> Create(EventEntity eventEntity)
         {
-            var eventEntity = new EventEntity
-            {
-                Id = @event.Id,
-                Title = @event.Title,
-                EventDateTime = @event.EventDateTime,
-                Location = @event.Location
-            };
-
+            
             await _context.Events.AddAsync(eventEntity);
             await _context.SaveChangesAsync();
 
