@@ -10,3 +10,4 @@ namespace WebApplication1.ServerApp.Сore.Contracts
         [Required] string password
     );
 }
+

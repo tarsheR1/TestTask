@@ -19,7 +19,7 @@ namespace WebApplication1.ServerApp.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task<List<Event>> GetEvents(string? search, string? sortItem, string? sortOrder)
+        public async Task<List<EventEntity>> GetEvents(string? search, string? sortItem, string? sortOrder)
         {
             var eventsEntities = await _context.Events
                 .Where(e => string.IsNullOrWhiteSpace(search) ||
@@ -27,11 +27,7 @@ namespace WebApplication1.ServerApp.DataAccess.Repositories
                 .AsNoTracking()
                 .ToListAsync();
 
-            var events = eventsEntities
-                    .Select(e => new Event { Id = e.Id, Title = e.Title, EventDateTime = e.EventDateTime, Location = e.Location })
-                    .ToList();
-
-            return events;
+            return eventsEntities;
         }
 
         public async Task<Guid> Create(EventEntity eventEntity)

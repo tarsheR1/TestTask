@@ -14,6 +14,10 @@ using WebApplication1.ServerApp.DataAccess;
 using WebApplication1.ServerApp.Infrastructure.Authorization;
 using WebApplication1.ServerApp.Infrastructure.Authorization.PasswordHasher;
 using WebApplication1.ServerApp.DataAccess.Repositories;
+using FluentValidation;
+using WebApplication1.ServerApp.Ñore.Contracts;
+using WebApplication1.ServerApp.Application.Validation;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -78,6 +82,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IEventsRepository, EventsRepository>();
 builder.Services.AddScoped<IEventService, EventService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddAutoMapper(typeof(UserEntityToUserProfile).Assembly);
 builder.Services.AddAutoMapper(typeof(UserToUserEntityProfile).Assembly);
@@ -85,6 +90,13 @@ builder.Services.AddAutoMapper(typeof(EventToEventEntity).Assembly);
 builder.Services.AddAutoMapper(typeof(EventEntityToEvent).Assembly);
 var jwtOptions = builder.Configuration.GetSection("JwtOptions").Get<JwtOptions>();
 
+builder.Services.AddControllers()
+    .AddFluentValidation(fv =>
+    {
+        fv.RegisterValidatorsFromAssemblyContaining<RegisterUserRequestValidator>();
+        fv.RegisterValidatorsFromAssemblyContaining<LoginUserRequestValidator>();
+        fv.RegisterValidatorsFromAssemblyContaining<CreateEventRequestValidator>();
+    });
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
     { 

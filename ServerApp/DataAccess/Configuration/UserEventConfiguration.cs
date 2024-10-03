@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.ServerApp.DataAccess.Entities;
 
-namespace WebApplication1.ServerApp.Application.Controllers
+namespace WebApplication1.ServerApp.DataAccess.Configuration
 {
     public class UserEventConfiguration : IEntityTypeConfiguration<UserEventEntity>
     {

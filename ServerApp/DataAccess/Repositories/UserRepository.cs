@@ -1,13 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
+﻿
 using Microsoft.EntityFrameworkCore;
-using AutoMapper;
 using WebApplication1.ServerApp.DataAccess.Entities;
 using WebApplication1.Enums_core_;
-using Microsoft.AspNetCore.Http.HttpResults;
 using WebApplication1.ServerApp.Сore.Interfaces;
-using WebApplication1.ServerApp.Сore.Models;
-using WebApplication1.ServerApp.DataAccess;
+
 
 namespace WebApplication1.ServerApp.DataAccess.Repositories
 {
@@ -76,19 +72,12 @@ namespace WebApplication1.ServerApp.DataAccess.Repositories
             }
         }
 
-        public async Task<Guid> SubscribeForEvent(Guid eventId, Guid userId)
+        public async Task<Guid> SubscribeForEvent(UserEventEntity participate)
         {
             {
-
-                var newEventParticipate = new UserEventEntity
-                {
-                    EventId = eventId,
-                    UserId = userId
-                };
-
-                _context.EventParticipants.Add(newEventParticipate);
+                _context.EventParticipants.Add(participate);
                 await _context.SaveChangesAsync();
-                return eventId;
+                return participate.EventId;
             }
         }
 

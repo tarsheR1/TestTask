@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using WebApplication1.ServerApp.Сore.Interfaces;
 using WebApplication1.ServerApp.Сore.Models;
 using WebApplication1.ServerApp.Сore.Contracts;
-using WebApplication1.ServerApp.Сore.Validation;
 using FluentValidation;
+using WebApplication1.ServerApp.Application.Validation;
 
 namespace WebApplication1.ServerApp.Application.Controllers
 {
@@ -29,13 +29,6 @@ namespace WebApplication1.ServerApp.Application.Controllers
         [Authorize(Policy = "RequireAdminPermission")]
         public async Task<IActionResult> CreateEvent([FromBody] CreateEventRequest request, CancellationToken cancellationToken)
         {
-            var validationResult = _validator.Validate(request);
-
-            if (!validationResult.IsValid)
-            {
-                return BadRequest(validationResult.Errors);
-            }
-
             Event @event = new Event
             {
                 Id = Guid.NewGuid(),
