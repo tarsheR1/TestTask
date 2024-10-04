@@ -31,7 +31,7 @@ namespace WebApplication1.ServerApp.DataAccess
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string connectionString = _configuration.GetConnectionString("DefaultConnection");
-            optionsBuilder.UseSqlServer("Server=TIME_MACHINE\\SQLEXPRESS;Database=Менеджер мероприятий;Trusted_Connection=True;TrustServerCertificate=true;").LogTo(Console.WriteLine, LogLevel.Information);
+            optionsBuilder.UseSqlServer(connectionString).LogTo(Console.WriteLine, LogLevel.Information);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

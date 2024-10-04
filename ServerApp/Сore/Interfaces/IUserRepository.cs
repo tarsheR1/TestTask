@@ -10,6 +10,6 @@ public interface IUserRepository
     Task<UserEntity> GetByEmail(string email);
     Task<HashSet<Permissions>> GetUserPermissions(Guid userId);
     Task<List<UserEntity>> GetUsersForEvent(Guid eventId);
-    Task<Guid> SubscribeForEvent(Guid eventId, Guid userId);
+    Task<Guid> SubscribeForEvent(UserEventEntity userEventEntity);
     Task<Guid> UnscribeForEvent(Guid eventId, Guid userId);
 }
